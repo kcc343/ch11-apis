@@ -25,15 +25,15 @@ response <- GET(uri_full)
 
 # Extract the "text" of the response usin the `content` function
 
-response_content <- content(response, "text")
+body <- content(response, "text")
 
 # Convert the body from JSON into a data frame
 
-body_data <- fromJSON(response_content)
+info_repos <- fromJSON(body)
 
 # How many (public) repositories does the organization have?
 
-number_repos <- nrow(body_data)
+number_repos <- nrow(info_repos)
 
 ##### New query ######
 
@@ -56,8 +56,8 @@ response <- GET(paste0(base_uri, resource), query = query_params)
 
 # Extract the response body and convert it from JSON.
 
-response_content <- content(response, text)
-body_data <- fromJSON(response_content)
+body <- content(response, "text")
+results <- fromJSON(body)
 
 # How many search repos did your search find? (Hint: check the list names)
 
@@ -65,5 +65,6 @@ print(results$total_count)
 
 # What are the full names of the top 5 results?
 
-
+vis_repo_names <- results$items$full_name[1:5]
+print(vis_repo_names)
 

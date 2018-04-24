@@ -36,17 +36,26 @@ nyt_movie_reviews <- fromJSON(body)
 
 # What kind of data structure did this produce? A data frame? A list?
 
+class(nyt_movie_reviews)
+
 # Manually inspect the returned data and identify the content of interest 
 # (which are the movie reviews).
 # Use functions such as `names()`, `str()`, etc.
-
+names(nyt_movie_reviews)
+names(nyt_movie_reviews$results)
 
 # Flatten the movie reviews content into a data structure called `reviews`
 
+reviews <- flatten(nyt_movie_reviews$results)
 
 # From the most recent review, store the headline, short summary, and link to
 # the full article, each in their own variables
 
+first_review <- reviews[1, ]
+headline <- first_review$headline
+summary <- first_review$summary_short
+link <- first_review$link.url
 
 # Create a list of the three pieces of information from above. 
 # Print out the list.
+review <- list(headline = headline, summary = summary, link = link)
